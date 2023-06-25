@@ -6,7 +6,7 @@ import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/navigation";
 
 import Modal from "./Modal";
-import useAuthModal from "@/hooks/useAuthModel";
+import useAuthModal from "@/hooks/useAuthModal";
 import { useEffect } from "react";
 
 const AuthModal = () => {
