@@ -10,7 +10,7 @@ import { useUser } from "@/hooks/useUser";
 import { toast } from "react-hot-toast";
 
 interface LikeButtonProps {
-    songId: string
+    songId: string,
 }
 
 const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
@@ -43,6 +43,7 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
     }, [user?.id, supabaseClient, songId]);
 
     const Icon = isLiked ? AiFillHeart : AiOutlineHeart;
+
     const handleLike = async () => {
         if (!user) {
             return authModal.onOpen();
@@ -74,6 +75,7 @@ const LikeButton: FC<LikeButtonProps> = ({ songId }) => {
                 toast.success("Added to liked list.");
             }
         }
+        router.refresh();
     }
 
     return (
