@@ -1,7 +1,7 @@
 import Stripe from "stripe";
 import { createClient } from "@supabase/supabase-js";
 
-import { Price, Product, Subscription } from "@/types";
+import { Price, Product } from "@/types";
 import { Database } from "@/types_db";
 import { stripe } from "./stripe";
 import { toDateTime } from "./helpers";
@@ -97,7 +97,7 @@ const createOrRetrieveCustomer = async ({
 };
 
 const copyBillingDetailsToCustomer = async (
-  uuid: string,
+  userUUID: string,
   payment_method: Stripe.PaymentMethod
 ) => {
   const customer = payment_method.customer as string;
@@ -114,7 +114,7 @@ const copyBillingDetailsToCustomer = async (
       billing_address: { ...address },
       payment_method: { ...payment_method[payment_method.type] },
     })
-    .eq("id", uuid);
+    .eq("id", userUUID);
 
   if (error) throw error;
 };
