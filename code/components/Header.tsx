@@ -14,6 +14,7 @@ import { useUser } from "@/hooks/useUser";
 import Button from "./Button";
 import { FaUserAlt } from "react-icons/fa";
 import { toast } from "react-hot-toast";
+import usePlayer from "@/hooks/usePlayer";
 
 interface HeaderProps {
     children: ReactNode;
@@ -23,12 +24,14 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ children, className }) => {
     const router = useRouter();
     const authModal = useAuthModal();
+    const player = usePlayer();
 
     const supabaseClient = useSupabaseClient();
     const { user } = useUser();
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut();
+        player.reset();
         router.refresh();
 
         if (error) {
